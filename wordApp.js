@@ -1,8 +1,19 @@
 const fs = require("fs");
 
-fs.readfile('./dictionary/words.txt', function(err, data) {
+const writestream = fs.createWriteStream("ordered-words.txt");
+
+fs.readFile('./dictionary/test-words.txt', function(err, data) {
     if (err) {
         console.log("You done goofed.");
     }
-    
+    const wordArray = data.toString().toLowerCase().split('\n');
+
+    for (const word of wordArray) {
+        reorder = word.split("").sort();
+        
+        if (reorder.join("") === word) {
+            console.log(word)
+            writestream.write(word + '\n');
+        }       
+    }    
 });
